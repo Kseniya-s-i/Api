@@ -15,7 +15,8 @@ def ocrug(geocoder):
             json_response = response.json()
             toponym = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
             toponym_address = toponym['Point']['pos'].split(' ')
-            return toponym_address
+            toponym_meta = toponym["metaDataProperty"]["GeocoderMetaData"]["text"]
+            return toponym_address, toponym_meta
         else:
             print("Ошибка выполнения запроса:")
             print(geocoder_request)
@@ -47,14 +48,19 @@ class Form(QMainWindow):
         information = self.inquiry.text()
         geocoder_request = f"http://geocode-maps.yandex.ru/1.x/" \
                            f"?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={information}&format=json"
-        crds = ocrug(geocoder_request)
+        geo = ocrug(geocoder_request)
+        crds = geo[0]
+        info = geo[1]
         if crds != 0:
             last_coords = crds
+            self.info.setText(info)
             cards(crds, f'&pt={crds[0]},{crds[1]},pm2dgm')
         else:
             cards(last_coords, f'&pt={last_coords[0]},{last_coords[1]},pm2dgm')
 
     def removee(self):
+        self.inquiry.setText('')
+        self.info.setText('')
         cards(last_coords, '')
 
 response = None
