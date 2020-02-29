@@ -33,8 +33,8 @@
    <widget class="QPushButton" name="getsrch">
     <property name="geometry">
      <rect>
-      <x>80</x>
-      <y>240</y>
+      <x>30</x>
+      <y>160</y>
       <width>121</width>
       <height>31</height>
      </rect>
@@ -51,6 +51,19 @@
       <width>151</width>
       <height>31</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="deleting">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>210</y>
+      <width>201</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Сброс поискового результата</string>
     </property>
    </widget>
   </widget>

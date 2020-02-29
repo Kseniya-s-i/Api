@@ -39,6 +39,7 @@ class Form(QMainWindow):
     def initUI(self):
         self.setWindowTitle('Система')
         self.getsrch.clicked.connect(self.trysearch)
+        self.deleting.clicked.connect(self.removee)
         self.show()
 
     def trysearch(self):
@@ -53,6 +54,8 @@ class Form(QMainWindow):
         else:
             cards(last_coords, f'&pt={last_coords[0]},{last_coords[1]},pm2dgm')
 
+    def removee(self):
+        cards(last_coords, '')
 
 response = None
 coords = ["37.530887", "55.703118"]  # долгота(-180, 180), широта(-90, 90)
