@@ -8,7 +8,18 @@ import requests
 information = ''
 
 
-def ocrug(geocoder):
+def isindex(resp):
+    try:
+        x = resp["metaDataProperty"] \
+                        ["GeocoderMetaData"]["AddressDetails"]['Country']['AdministrativeArea']['Locality']['Thoroughfare'][
+                        'Premise'][
+                        'PostalCode']['PostalCodeNumber']
+        return 1
+    except BaseException:
+        return 0
+
+
+def ocrug(geocoder, ind=False):
     response = requests.get(geocoder)
     try:
         if response:
@@ -16,6 +27,14 @@ def ocrug(geocoder):
             toponym = json_response["response"]["GeoObjectCollection"]["featureMember"][0]["GeoObject"]
             toponym_address = toponym['Point']['pos'].split(' ')
             toponym_meta = toponym["metaDataProperty"]["GeocoderMetaData"]["text"]
+            if ind:
+                if isindex(toponym):
+                    toponym_index = toponym["metaDataProperty"] \
+                        ["GeocoderMetaData"]["AddressDetails"]['Country']['AdministrativeArea']['Locality']['Thoroughfare'][
+                        'Premise'][
+                        'PostalCode']['PostalCodeNumber']
+                    return toponym_address, toponym_meta, toponym_index
+                return toponym_address, toponym_meta, ''
             return toponym_address, toponym_meta
         else:
             print("Ошибка выполнения запроса:")
@@ -27,6 +46,7 @@ def ocrug(geocoder):
 
 
 last_coords = ["37.530887", "55.703118"]
+last_index = False
 
 
 class Form(QMainWindow):
@@ -38,23 +58,38 @@ class Form(QMainWindow):
         self.initUI()
 
     def initUI(self):
+        self.index = False
         self.setWindowTitle('Система')
         self.getsrch.clicked.connect(self.trysearch)
         self.deleting.clicked.connect(self.removee)
         self.show()
 
+    def yes_ind(self):
+        self.index = True
+
     def trysearch(self):
         global last_coords, information
+        if self.index_btn.isChecked():
+            self.yes_ind()
+        else:
+            self.index = False
         information = self.inquiry.text()
         geocoder_request = f"http://geocode-maps.yandex.ru/1.x/" \
                            f"?apikey=40d1649f-0493-4b70-98ba-98533de7710b&geocode={information}&format=json"
-        geo = ocrug(geocoder_request)
-        crds = geo[0]
-        info = geo[1]
-        if crds != 0:
-            last_coords = crds
-            self.info.setText(info)
-            cards(crds, f'&pt={crds[0]},{crds[1]},pm2dgm')
+        geo = ocrug(geocoder_request, ind=self.index)
+        if geo:
+            crds = geo[0]
+            if self.index:
+                info = geo[1] + geo[2]
+                # print(info)
+            else:
+                info = geo[1]
+            if crds != 0:
+                last_coords = crds
+                self.info.setText(info)
+                cards(crds, f'&pt={crds[0]},{crds[1]},pm2dgm')
+            else:
+                cards(last_coords, f'&pt={last_coords[0]},{last_coords[1]},pm2dgm')
         else:
             cards(last_coords, f'&pt={last_coords[0]},{last_coords[1]},pm2dgm')
 

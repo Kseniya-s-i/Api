@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>286</width>
-    <height>325</height>
+    <width>311</width>
+    <height>422</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -34,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>110</y>
+      <y>180</y>
       <width>151</width>
       <height>31</height>
      </rect>
@@ -43,21 +43,11 @@
      <string>Найти</string>
     </property>
    </widget>
-   <widget class="QLineEdit" name="inquiry">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>68</y>
-      <width>151</width>
-      <height>31</height>
-     </rect>
-    </property>
-   </widget>
    <widget class="QPushButton" name="deleting">
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>210</y>
+      <y>300</y>
       <width>201</width>
       <height>41</height>
      </rect>
@@ -70,10 +60,68 @@
     <property name="geometry">
      <rect>
       <x>30</x>
-      <y>150</y>
+      <y>230</y>
       <width>201</width>
       <height>51</height>
      </rect>
+    </property>
+   </widget>
+   <widget class="QLineEdit" name="inquiry">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>70</y>
+      <width>151</width>
+      <height>31</height>
+     </rect>
+    </property>
+    <property name="locale">
+     <locale language="Russian" country="Ukraine"/>
+    </property>
+    <property name="inputMask">
+     <string notr="true"/>
+    </property>
+    <property name="text">
+     <string notr="true"/>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="index_btn">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>150</y>
+      <width>95</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>ДА</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>120</y>
+      <width>121</width>
+      <height>16</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Указать индекс:</string>
+    </property>
+   </widget>
+   <widget class="QRadioButton" name="index_no">
+    <property name="geometry">
+     <rect>
+      <x>120</x>
+      <y>150</y>
+      <width>95</width>
+      <height>20</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>НЕТ</string>
     </property>
    </widget>
   </widget>
@@ -82,7 +130,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>286</width>
+     <width>311</width>
      <height>26</height>
     </rect>
    </property>
